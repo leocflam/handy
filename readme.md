@@ -10,7 +10,7 @@ Laravel Lumen is a stunningly fast PHP micro-framework for building web applicat
 
 ## Setup the project
 - $ composer update
-- $ composer install
+- (or) $ composer install
 - create a localhost database called "handy"
 - $ php artisan migrate:refresh
 
