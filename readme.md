@@ -10,8 +10,11 @@ Laravel Lumen is a stunningly fast PHP micro-framework for building web applicat
 
 ## Setup the project
 $ composer update
+
 $ composer install
+
 create a localhost database called "handy"
+
 $ php artisan migrate:refresh
 
 ## Run the Test
@@ -21,17 +24,30 @@ $ vendor\bin\phpunit tests\
 - file you might be interested to look at
 
 routes:
+
   routes\web.php
+
+
 controllers:
+
   app\Http\Controllers\Bankings\
+
+
 middlware (to protect self actions)
+
   app\Http\Middleware\SelfBankAccount.php
   
+
 test files:
+
   tests\bank_account\
 
+
 models + actions handling + fees:
+
   app\Bankings\
 
+
 db schema:
+
   database\migrations\
