@@ -8,14 +8,27 @@
 
 Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
 
-## Official Documentation
+## Setup the project
+Composer install
 
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
+## Run the Test
+vendor\bin\phpunit tests\
 
-## Security Vulnerabilities
+## Notes
+- file you might be interested to look at
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+routes:
+  routes\web.php
+controllers:
+  app\Http\Controllers\Bankings\
+middlware (to protect self actions)
+  app\Http\Middleware\SelfBankAccount.php
+  
+test files:
+  tests\bank_account\
 
-## License
+models + actions handling + fees:
+  app\Bankings\
 
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+db schema:
+  database\migrations\

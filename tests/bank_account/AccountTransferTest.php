@@ -1,9 +1,10 @@
 <?php
 
+use Carbon\Carbon;
 use App\Bankings\BankAccount;
 use App\Bankings\Transaction;
-use Laravel\Lumen\Testing\DatabaseTransactions;
 use App\Bankings\Policies\BankAccountTransfer;
+use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class AccountTransferTest extends TestCase
 {
@@ -125,8 +126,28 @@ class AccountTransferTest extends TestCase
         ];
         $this->expectExceptionMessage('MAXIMUM_TRANSFER_LIMIT_REACHED');
         $manager = (new BankAccountTransfer($this->bankAccount, $this->targetBankAccount))->handle($input);
+    }
 
-        // I can submit next day
+    /**
+     * @test
+     */
+    public function assume_the_history_was_made_yesterday_so_I_can_transfer()
+    {
+        $history = Factory(Transaction::class)->create([
+          'bank_account_id'       => $this->bankAccount->id,
+          'amount'                => 10000,
+          'type'                  => 'transfer',
+          'flag'                  => 'credit',
+          'created_at'            => Carbon::yesterday()->toDateTimeString()
+        ]);
+
+        $input              = [
+          'amount' => rand(1, 1000)
+        ];
+
+        $sourceBalance = $this->bankAccount->balance;
+        $manager       = (new BankAccountTransfer($this->bankAccount, $this->targetBankAccount))->handle($input);
+        $this->assertEquals($sourceBalance - $input['amount'], $manager->getSourceAccount()->balance);
     }
 
     /**
