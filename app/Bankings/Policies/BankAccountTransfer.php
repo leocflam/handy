@@ -2,6 +2,7 @@
 
 namespace App\Bankings\Policies;
 
+use App\Bankings\Apis\HandyAPI;
 use App\Bankings\Transaction;
 use App\Bankings\Fees\TransferServiceFee;
 use App\Exceptions\Bankings\BankAccountException;
@@ -30,6 +31,9 @@ class BankAccountTransfer
         $this->sourceAccountMustBeReachDailyLimit($input);
 
         if ($this->sourceAccount->user_id !== $this->targetAccount->user_id) {
+            if (!(new HandyAPI)->getTransferApprove()) {
+                throw new BankAccountException('TRANSFER_REJECTED_BY_HANDY');
+            }
             $fee = new TransferServiceFee($this->sourceAccount);
             $this->sourceAccountMustHaveBalanceForFeePlusTargetAmount($fee, $input);
             $this->serviceFee = $this->chargeServiceFee($fee);
