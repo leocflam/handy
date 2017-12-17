@@ -23,5 +23,4 @@ $router->group(['prefix' => 'v1', 'namespace' => 'Bankings'], function ($router)
     $router->post('bank-accounts/{uuid}/transactions/withdraw', 'BankAccountsTransactionsController@withdraw');
     $router->post('bank-accounts/{uuid}/transactions/deposit', 'BankAccountsTransactionsController@deposit');
     $router->post('bank-accounts/{uuid}/transactions/transfer', 'BankAccountsTransactionsController@transfer');
-    $router->post('bank-accounts/{uuid}/transactions', 'BankAccountsTransactionsController@store');
 });
